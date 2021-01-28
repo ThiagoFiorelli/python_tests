@@ -18,14 +18,13 @@ class Category(Base):
 
     @validates('name')
     def validate_name(self, key, name):
-        print(name)
         if not isinstance(name, str):
             raise TypeError('Name must be a string!')
         if not name:
             raise ValueError('Name cannot be empty!')
         if len(name) > 100:
             raise ValueError('Name must be 100 or less characters!')
-        if not re.match(r'^[a-zà-úA-ZÀ-Ú0-9 ]+$', name):
+        if not re.match(r'^[a-zà-úA-ZÀ-Ú0-9,. ]+$', name):
             raise ValueError('Name cannot have special characters!')
         return name
 

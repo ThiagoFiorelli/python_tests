@@ -20,7 +20,7 @@ def test_category_model_values():
     assert obj_.description == description_, 'Category name must match the description entered'
     assert obj_.name != '' and obj_.name is not None, 'Category name cannot be empty'
     assert len(obj_.name) <= 100, 'Name must be 100 or less characters'
-    assert re.match(r'^[a-zà-úA-ZÀ-Ú0-9 ]+$', obj_.name), 'Name cannot have special characters!'
+    assert re.match(r'^[a-zà-úA-ZÀ-Ú0-9,. ]+$', obj_.name), 'Name cannot have special characters!'
     assert len(obj_.description) <= 255, 'Description must be 255 or less characters!'
 
 def test_category_model_name_type_exception():
