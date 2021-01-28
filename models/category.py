@@ -20,7 +20,7 @@ class Category(Base):
     def validate_name(self, key, name):
         if not isinstance(name, str):
             raise TypeError('Name must be a string!')
-        if not name:
+        if not name.strip():
             raise ValueError('Name cannot be empty!')
         if len(name) > 100:
             raise ValueError('Name must be 100 or less characters!')
