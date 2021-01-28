@@ -10,7 +10,7 @@ class Category(Base):
     __tablename__ = 'categories'
     id_ = Column('id', Integer, primary_key = True)
     name = Column('name', String(length=100), nullable = False)
-    description = Column('description', String(length=255), nullable = False)
+    description = Column('description', String(length=255), nullable = True)
 
     def __init__(self, name: str, description: str) -> None:
         self.name = name
@@ -30,7 +30,7 @@ class Category(Base):
 
     @validates('description')
     def validate_description(self, key, description):
-        if not isinstance(description, str):
+        if not isinstance(description, str) and description is not None:
             raise TypeError('Description must be a string!')
         if len(description) > 255:
             raise ValueError('Description must be 255 or less characters!')
