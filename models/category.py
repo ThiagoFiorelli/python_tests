@@ -1,14 +1,11 @@
-from sqlalchemy import Column, String, Integer
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, String
+from models.base_model import BaseModel
 from sqlalchemy.orm import validates
-import re
+from utils.validators import validate_type, validate_not_empty, validate_len
 
 
-Base = declarative_base()
-
-class Category(Base):
+class Category(BaseModel):
     __tablename__ = 'categories'
-    id_ = Column('id', Integer, primary_key = True)
     name = Column('name', String(length=100), nullable = False)
     description = Column('description', String(length=255), nullable = True)
 
@@ -18,21 +15,12 @@ class Category(Base):
 
     @validates('name')
     def validate_name(self, key, name):
-        if not isinstance(name, str):
-            raise TypeError('Name must be a string!')
-        if not name.strip():
-            raise ValueError('Name cannot be empty!')
-        if len(name) > 100:
-            raise ValueError('Name must be 100 or less characters!')
-        if not re.match(r'^[a-zà-úA-ZÀ-Ú0-9,. ]+$', name):
-            raise ValueError('Name cannot have special characters!')
-        return name
+        name = validate_type(name, str, key)
+        name = validate_not_empty(name, key)
+        return validate_len(name, 100, key)
 
     @validates('description')
     def validate_description(self, key, description):
-        if not isinstance(description, str) and description is not None:
-            raise TypeError('Description must be a string!')
-        if len(description) > 255:
-            raise ValueError('Description must be 255 or less characters!')
-        return description
+        description = validate_type(description, str, key)
+        return validate_len(description, 255, key)
 
