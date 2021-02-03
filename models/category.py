@@ -5,7 +5,7 @@ from utils.validators import validate_type, validate_not_empty, validate_len
 
 
 class Category(BaseModel):
-    __tablename__ = 'categories'
+    __tablename__ = 'category'
     name = Column('name', String(length=100), nullable = False)
     description = Column('description', String(length=255), nullable = True)
 
@@ -23,4 +23,3 @@ class Category(BaseModel):
     def validate_description(self, key, description):
         description = validate_type(description, str, key)
         return validate_len(description, 255, key)
-
