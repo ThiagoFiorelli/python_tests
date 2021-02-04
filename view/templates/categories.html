@@ -1,0 +1,35 @@
+{% extends 'template.html'%}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary" href="/category/create" style="float: right">New Category</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr class="table-primary">
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in categories %}
+                    <tr>
+                        <td>{{category.name}}</td>
+                        <td>{{category.description}}</td>
+                        <td>
+                            <a style="color: blue;" href="/category/update/{{category.id_}}">Update</a>
+                            <a style="color: red;" href="/category/delete/{{category.id_}}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
